@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="refuge_aventuriers.Footer">
+        <footer class="refuge-footer">
+                <p class="footer-text">© 2025 Le Refuge des Aventuriers</p>
+        </footer>
+    </t>
+</templates>

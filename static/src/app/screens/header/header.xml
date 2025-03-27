@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="refuge_aventuriers.Header">
+        <header class="refuge-header">
+                <div class="header-content">
+                    <img
+                        class="refuge-logo"
+                        src="/refuge_aventuriers/static/src/app/img/logo.png"
+                        alt="Logo du Refuge des Aventuriers"
+                        t-on-click="() => refuge.showScreen('MainScreen')"
+                    />
+                </div>
+        </header>
+    </t>
+</templates>
