@@ -7,6 +7,7 @@
     "license": "GPL-3 or any later version",
     "category": "Tools",
     "data": [
+        "security/ir.model.access.csv",
         "views/refuge_assets_index.xml",
     ],
     "assets": {

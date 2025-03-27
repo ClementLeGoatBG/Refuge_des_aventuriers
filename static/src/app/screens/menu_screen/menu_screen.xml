@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="refuge_aventuriers.MenuScreen">
+        <div class="refuge-main-screen">
+            <header class="refuge-header">
+                <div class="header-content">
+                    <img
+                        class="refuge-logo"
+                        src="/refuge_aventuriers/static/src/app/img/logo.png"
+                        alt="Logo du Refuge des Aventuriers"
+                        t-on-click="() => refuge.showScreen('MainScreen')"
+                    />
+                </div>
+            </header>
+            <main class="refuge-main-content">
+                <div class="welcome-card">
+                    <h2 class="welcome-title">Choisissez votre breuvage</h2>
+                    <div class="menu-buttons">
+                        <button class="enter-button" t-on-click="openBeerMenu" style="margin-bottom: 1rem;">
+                            Les Bières
+                        </button>
+                        <button class="enter-button" t-on-click="openWineMenu" style="margin-bottom: 1rem;">
+                            Les Vins
+                        </button>
+                        <button class="enter-button" t-on-click="openCocktailMenu" style="margin-bottom: 1rem;">
+                            Les Cocktails
+                        </button>
+                        <button class="enter-button" t-on-click="openStrongAlcoholMenu" style="margin-bottom: 1rem;">
+                            Les Alcools Forts
+                        </button>
+                        <button class="enter-button" t-on-click="openSoftsMenu">
+                            Les Softs
+                        </button>
+                    </div>
+                </div>
+            </main>
+            <footer class="refuge-footer">
+                <p class="footer-text">© 2025 Le Refuge des Aventuriers</p>
+            </footer>
+        </div>
+    </t>
+</templates>
