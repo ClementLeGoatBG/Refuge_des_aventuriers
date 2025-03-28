@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-     <t t-name="refuge_aventuriers.BeerLine">
-         <tr t-on-click="props.onClick">
-             <td class="beer-list-name"><t t-esc="props.name" /></td>
-         </tr>
+    <t t-name="refuge_aventuriers.BeerLine">
+        <tr t-on-click="props.onClick">
+            <!-- Colonne pour l'image -->
+            <td class="beer-list-image">
+                <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="beer-image" />
+            </td>
+            <!-- Colonne pour le nom du produit -->
+            <td class="beer-list-name"><t t-esc="props.name" /></td>
+        </tr>
     </t>
 </templates>

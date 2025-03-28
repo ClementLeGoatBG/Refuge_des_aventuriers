@@ -8,6 +8,7 @@ export class BeerLine extends Component {
     static props = {
         name: String,
         beerId: Number,
+        imageUrl: String,
         onClick: { type: Function, optional: true },
     };
 }

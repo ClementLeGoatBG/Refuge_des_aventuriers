@@ -7,8 +7,10 @@
                 <t t-foreach="refuge.products" t-as="product" t-key="product.id">
                     <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Bière'">
                         <span>
-                            <BeerLine name="product.name"
-                                      beerId="product.id"/>
+                            <BeerLine
+                                name="product.name"
+                                beerId="product.id"
+                                imageUrl="product.image_url"/>
                         </span>
                     </div>
                 </t>
