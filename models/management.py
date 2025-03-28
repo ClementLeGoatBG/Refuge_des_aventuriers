@@ -12,13 +12,11 @@ class RefugeManagement(models.Model):
         products = self.env["product.template"].search_read(
             fields=[
                 'name',
-                'categ_id',
-                'id',
+                'list_price',
+                'description',
                 'image_1920',
-                # 'sale_price',
-                # 'cost_price',
-                # 'product_type',
-                # 'volume',
+                'id',
+                'categ_id'
             ]
         )
 
@@ -26,9 +24,10 @@ class RefugeManagement(models.Model):
         for product in products:
             if product.get('image_1920'):
                 product[
+                    # CHANGER LIEN IMG SI PLUS SUR LOCALHOST
                     'image_url'] = f"http://localhost:8070/web/image?model=product.template&id={product['id']}&field=image_1920"
             else:
-                product['image_url'] = None  # Si aucune image, valeur par défaut
+                product['image_url'] = None
 
         return {
             "product.template": products,

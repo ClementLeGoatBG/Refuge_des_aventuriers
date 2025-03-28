@@ -9,6 +9,7 @@
                         <span>
                             <BeerLine
                                 name="product.name"
+                                beerPrice="product.list_price"
                                 beerId="product.id"
                                 imageUrl="product.image_url"/>
                         </span>
