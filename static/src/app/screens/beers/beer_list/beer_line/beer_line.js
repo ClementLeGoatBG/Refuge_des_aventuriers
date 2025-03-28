@@ -7,7 +7,7 @@ export class BeerLine extends Component {
 
     static props = {
         name: String,
-        groupId: Number,
+        beerId: Number,
         onClick: { type: Function, optional: true },
     };
 }

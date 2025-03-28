@@ -4,8 +4,8 @@ import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
 
-export class SoftFormScreen extends Component {
-    static template = "refuge_aventuriers.SoftFormScreen";
+export class WhiteWineFormScreen extends Component {
+    static template = "refuge_aventuriers.WhiteWineFormScreen";
 
     setup() {
         this.refuge = useRefuge();
@@ -13,4 +13,4 @@ export class SoftFormScreen extends Component {
 
 }
 
-registry.category("refuge_screens").add("SoftFormScreen", SoftFormScreen);
+registry.category("refuge_screens").add("WhiteWineFormScreen", WhiteWineFormScreen);

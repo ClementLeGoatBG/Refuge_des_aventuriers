@@ -2,12 +2,12 @@
 
 import { Component } from "@odoo/owl";
 
-export class WineLine extends Component {
-    static template = "refuge_aventuriers.WineLine";
+export class WhiteWineLine extends Component {
+    static template = "refuge_aventuriers.WhiteWineLine";
 
     static props = {
         name: String,
-        groupId: Number,
+        whitewineId: Number,
         onClick: { type: Function, optional: true },
     };
 }

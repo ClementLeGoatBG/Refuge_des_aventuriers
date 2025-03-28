@@ -3,13 +3,13 @@
 import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
-import { BeerLine } from "@refuge_aventuriers/app/screens/beers/beer_list/beer_line/beer_line";
+import { RedWineLine } from "@refuge_aventuriers/app/screens/redwines/redwine_list/redwine_line/redwine_line";
 import { Header } from "@refuge_aventuriers/app/screens/header/header";
 import { Footer } from "@refuge_aventuriers/app/screens/footer/footer";
 
-export class BeerListScreen extends Component {
-    static template = "refuge_aventuriers.BeerListScreen";
-    static components = { BeerLine, Header, Footer};
+export class RedWineListScreen extends Component {
+    static template = "refuge_aventuriers.RedWineListScreen";
+    static components = { RedWineLine, Header, Footer};
 
 
     setup() {
@@ -18,4 +18,4 @@ export class BeerListScreen extends Component {
 
 }
 
-registry.category("refuge_screens").add("BeerListScreen", BeerListScreen);
+registry.category("refuge_screens").add("RedWineListScreen", RedWineListScreen);

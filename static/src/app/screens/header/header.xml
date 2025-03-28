@@ -2,7 +2,16 @@
 <templates id="template" xml:space="preserve">
     <t t-name="refuge_aventuriers.Header">
         <header class="refuge-header">
-                <div class="header-content">
+            <div class="header-content">
+                <div class="header-left">
+                    <button
+                        class="back-button"
+                        t-on-click="() => refuge.back()"
+                        t-att-disabled="refuge.mainScreen.name === 'MainScreen'">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </div>
+                <div class="header-center">
                     <img
                         class="refuge-logo"
                         src="/refuge_aventuriers/static/src/app/img/logo.png"
@@ -10,6 +19,12 @@
                         t-on-click="() => refuge.showScreen('MainScreen')"
                     />
                 </div>
+                <div class="header-right">
+                    <button class="account-button" t-on-click="() => refuge.AccountScreen()">
+                        <i class="fa fa-user"></i>
+                    </button>
+                </div>
+            </div>
         </header>
     </t>
 </templates>

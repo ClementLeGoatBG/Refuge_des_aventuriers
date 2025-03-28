@@ -7,20 +7,20 @@
                 <div class="welcome-card">
                     <h2 class="welcome-title">Choisissez votre breuvage</h2>
                     <div class="menu-buttons">
-                        <button class="enter-button" t-on-click="openBeerMenu" style="margin-bottom: 1rem;">
+                        <button class="enter-button" t-on-click="() => refuge.showScreen('BeerListScreen')" style="margin-bottom: 1rem;">
                             Les Bières
                         </button>
-                        <button class="enter-button" t-on-click="openWineMenu" style="margin-bottom: 1rem;">
-                            Les Vins
+                        <button class="enter-button" t-on-click="() => refuge.showScreen('RedWineListScreen')" style="margin-bottom: 1rem;">
+                            Les Vins Rouges
                         </button>
-                        <button class="enter-button" t-on-click="openCocktailMenu" style="margin-bottom: 1rem;">
+                        <button class="enter-button" t-on-click="() => refuge.showScreen('WhiteWineListScreen')" style="margin-bottom: 1rem;">
+                            Les Vins Blancs
+                        </button>
+                        <button class="enter-button" t-on-click="() => refuge.showScreen('CocktailListScreen')" style="margin-bottom: 1rem;">
                             Les Cocktails
                         </button>
-                        <button class="enter-button" t-on-click="openStrongAlcoholMenu" style="margin-bottom: 1rem;">
+                        <button class="enter-button" t-on-click="() => refuge.showScreen('SpiritListScreen')">
                             Les Alcools Forts
-                        </button>
-                        <button class="enter-button" t-on-click="openSoftsMenu">
-                            Les Softs
                         </button>
                     </div>
                 </div>

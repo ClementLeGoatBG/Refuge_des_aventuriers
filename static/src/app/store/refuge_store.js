@@ -4,9 +4,11 @@ import { registry } from "@web/core/registry";
 
 export class RefugeStore extends Reactive {
     mainScreen = { name: null, component: null };
+    screenHistory = []; // Initialisation de l'historique des écrans
     static serviceDependencies = [
         "orm",
     ];
+
     constructor() {
         super();
         this.ready = this.setup(...arguments).then(() => this);
@@ -18,7 +20,7 @@ export class RefugeStore extends Reactive {
 
         await this.load_server_data();
 
-        this.showScreen("MainScreen");
+        this.showScreen("MainScreen"); // Initialisation de l'écran principal
     }
 
     async load_server_data() {
@@ -27,14 +29,29 @@ export class RefugeStore extends Reactive {
     }
 
     async _processData(loadedData) {
-        return true // TODO: Changeme, process data
+        this.products = loadedData["product.template"];
+        return true; // TODO: Traitement des données à faire
     }
 
-
-
+    // Méthode pour afficher un écran
     showScreen(name, props) {
+        // Si un écran est déjà affiché, on l'ajoute à l'historique
+        if (this.mainScreen.name) {
+            this.screenHistory.push(this.mainScreen);
+        }
+
+        // Récupérer le composant de l'écran à afficher
         const component = registry.category("refuge_screens").get(name);
-        this.mainScreen = { component, props };
+        this.mainScreen = { name, component, props };  // Met à jour l'écran principal
+    }
+
+    // Méthode pour revenir à l'écran précédent
+    back() {
+        if (this.screenHistory.length > 0) {
+            // Récupérer l'écran précédent de l'historique
+            const previousScreen = this.screenHistory.pop();
+            this.mainScreen = previousScreen;  // Met à jour l'écran principal avec l'écran précédent
+        }
     }
 }
 

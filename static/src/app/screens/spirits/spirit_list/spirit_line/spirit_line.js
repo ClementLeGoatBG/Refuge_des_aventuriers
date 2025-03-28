@@ -7,7 +7,7 @@ export class SpiritLine extends Component {
 
     static props = {
         name: String,
-        groupId: Number,
+        spiritId: Number,
         onClick: { type: Function, optional: true },
     };
 }

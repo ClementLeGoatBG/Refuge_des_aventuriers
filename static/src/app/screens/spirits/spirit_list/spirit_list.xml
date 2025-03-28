@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.SpiritListScreen">
-
+         <div class="refuge-main-screen">
+             <Header></Header>
+             <main class="refuge-main-content">
+                 <t t-foreach="refuge.products" t-as="product" t-key="product.id">
+                     <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Alcool Fort'">
+                         <span>
+                             <SpiritLine name="product.name"
+                                         spiritId="product.id"/>
+                         </span>
+                     </div>
+                 </t>
+             </main>
+             <Footer></Footer>
+         </div>
     </t>
 </templates>

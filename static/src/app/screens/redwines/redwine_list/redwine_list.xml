@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-     <t t-name="refuge_aventuriers.CocktailListScreen">
+     <t t-name="refuge_aventuriers.RedWineListScreen">
          <div class="refuge-main-screen">
              <Header></Header>
              <main class="refuge-main-content">
                  <t t-foreach="refuge.products" t-as="product" t-key="product.id">
-                     <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Cocktail'">
+                     <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Vin / Rouge'">
                          <span>
-                             <CocktailLine name="product.name"
-                                           cocktailId="product.id"/>
+                             <RedWineLine name="product.name"
+                                          redwineId="product.id"/>
                          </span>
                      </div>
                  </t>
