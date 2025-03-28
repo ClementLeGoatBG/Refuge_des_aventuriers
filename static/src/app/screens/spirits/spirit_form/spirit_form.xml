@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-     <t t-name="tetras_school_management.GroupFormScreen">
-         <div class = "group-form">
-             <strong>Students List :</strong>
-         <table>
-             <tbody>
-                 <t t-foreach="props.students" t-as="student" t-key="student.id">
-                     <StudentLine name="student.name"
-                                  studentId="student.id"
-                                  onClick="() => this.onStudentClick(student)" />
-                 </t>
-             </tbody>
-         </table>
-            <div class = "bt_back" t-on-click="() => this.tetras.showScreen('GroupListScreen')">Back</div>
-         </div>
+     <t t-name="refuge_aventuriers.SpiritFormScreen">
+
     </t>
 </templates>

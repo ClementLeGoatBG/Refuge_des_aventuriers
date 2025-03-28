@@ -2,22 +2,15 @@
 
 import { Component } from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import { useTetras } from "@tetras_school_management/app/store/tetras_hook";
-import { StudentLine } from "@tetras_school_management/app/screens/students/student_list/student_line/student_line";
+import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
 
-export class GroupFormScreen extends Component {
-    static template = "tetras_school_management.GroupFormScreen";
-    static components = { StudentLine };
+export class CocktailFormScreen extends Component {
+    static template = "refuge_aventuriers.CocktailFormScreen";
 
     setup() {
-        this.tetras = useTetras();
-        console.log(this.props.students)
-    }
-
-    async onStudentClick(student) {
-       this.tetras.showScreen("StudentFormScreen", {"student": student})
+        this.refuge = useRefuge();
     }
 
 }
 
-registry.category("tetras_screens").add("GroupFormScreen", GroupFormScreen);
+registry.category("refuge_screens").add("CocktailFormScreen", CocktailFormScreen);

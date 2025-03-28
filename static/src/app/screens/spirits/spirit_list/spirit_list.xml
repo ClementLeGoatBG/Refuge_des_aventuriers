@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-     <t t-name="tetras_school_management.GroupListScreen">
-         <div class = "group-list">
-         <strong>Group List :</strong>
-         <table>
+     <t t-name="refuge_aventuriers.SpiritListScreen">
 
-             <tbody>
-                 <t t-foreach="tetras.groups" t-as="group" t-key="group.id">
-                     <GroupLine name="group.name"
-                                  groupId="group.id"
-                                  onClick="() => this.onGroupClick(group)" />
-                 </t>
-             </tbody>
-         </table>
-         <div class = "bt_back" t-on-click="() => this.tetras.showScreen('MainScreen')">Back</div>
-         </div>
     </t>
 </templates>

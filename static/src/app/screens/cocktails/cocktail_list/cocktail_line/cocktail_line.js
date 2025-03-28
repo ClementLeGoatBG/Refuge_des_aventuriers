@@ -2,9 +2,8 @@
 
 import { Component } from "@odoo/owl";
 
-
-export class GroupLine extends Component {
-    static template = "tetras_school_management.GroupLine";
+export class CocktailLine extends Component {
+    static template = "refuge_aventuriers.CocktailLine";
 
     static props = {
         name: String,
@@ -12,4 +11,3 @@ export class GroupLine extends Component {
         onClick: { type: Function, optional: true },
     };
 }
-
