@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.SpiritLine">
-         <tr t-on-click="props.onClick">
-             <td class="spirit-list-name"><t t-esc="props.name" />
-                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="spirit-image" />
-             </td>
-             <td class="spirit-list-name"><t t-esc="props.name" />
-            </td>
-            <td class="spirit-list-price"><t t-esc="props.spiritPrice" /> €
-            </td>
-         </tr>
+        <div class="spirit-item" t-on-click="props.onClick">
+            <div class="spirit-image-container">
+                <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="spirit-image" />
+                <div class="spirit-image-placeholder">
+                    <i class="fa fa-spirit" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="spirit-details">
+                <div class="spirit-name"><t t-esc="props.name" /></div>
+                <div class="spirit-price"><t t-esc="formatPrice(props.spiritPrice)" /></div>
+            </div>
+        </div>
     </t>
 </templates>

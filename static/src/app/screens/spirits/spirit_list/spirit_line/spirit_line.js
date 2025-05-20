@@ -8,8 +8,12 @@ export class SpiritLine extends Component {
     static props = {
         name: String,
         spiritPrice: Number,
-        imageUrl: String,
+        imageUrl: { type: String, optional: true },
         spiritId: Number,
         onClick: { type: Function, optional: true },
     };
+
+    formatPrice(price) {
+        return price.toFixed(2) + " €";
+    }
 }
