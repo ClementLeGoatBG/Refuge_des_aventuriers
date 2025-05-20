@@ -20,8 +20,8 @@
                     />
                 </div>
                 <div class="header-right">
-                    <button class="account-button" t-on-click="() => refuge.AccountScreen()">
-                        <i class="fa fa-user"></i>
+                    <button class="account-button" t-on-click="() => refuge.showScreen('CartScreen')">
+                        <i class="fa fa-shopping-cart"></i>
                     </button>
                 </div>
             </div>

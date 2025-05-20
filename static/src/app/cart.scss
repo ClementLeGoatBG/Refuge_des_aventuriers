@@ -18,3 +18,81 @@
 .cart-button:hover {
     background-color: #D35400;
 }
+
+.cart-list {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.cart-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.25rem;
+}
+
+.cart-details {
+    flex-grow: 1;
+}
+
+.cart-name {
+    font-weight: bold;
+    color: var(--muted-text);
+}
+
+.cart-info {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.cart-total-bar {
+    text-align: right;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-orange);
+}
+
+.empty-cart-message {
+    text-align: center;
+    color: var(--muted-text);
+    font-size: 1.1rem;
+}
+
+.cart-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.quantity-button {
+    background-color: var(--accent-orange);
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-button:hover {
+    background-color: #D35400;
+}

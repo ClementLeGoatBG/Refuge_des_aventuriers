@@ -4,10 +4,10 @@ import { registry } from "@web/core/registry";
 
 export class RefugeStore extends Reactive {
     mainScreen = { name: null, component: null };
-    screenHistory = []; // Initialisation de l'historique des écrans
-    static serviceDependencies = [
-        "orm",
-    ];
+    screenHistory = [];
+    cart = []; // 🛒 Initialisation du panier
+
+    static serviceDependencies = ["orm"];
 
     constructor() {
         super();
@@ -19,8 +19,7 @@ export class RefugeStore extends Reactive {
         this.orm = orm;
 
         await this.load_server_data();
-
-        this.showScreen("MainScreen"); // Initialisation de l'écran principal
+        this.showScreen("MainScreen");
     }
 
     async load_server_data() {
@@ -30,28 +29,59 @@ export class RefugeStore extends Reactive {
 
     async _processData(loadedData) {
         this.products = loadedData["product.template"];
-        return true; // TODO: Traitement des données à faire
+        return true;
     }
 
-    // Méthode pour afficher un écran
+    // 📱 Navigation
     showScreen(name, props) {
-        // Si un écran est déjà affiché, on l'ajoute à l'historique
         if (this.mainScreen.name) {
             this.screenHistory.push(this.mainScreen);
         }
-
-        // Récupérer le composant de l'écran à afficher
         const component = registry.category("refuge_screens").get(name);
-        this.mainScreen = { name, component, props };  // Met à jour l'écran principal
+        this.mainScreen = { name, component, props };
     }
 
-    // Méthode pour revenir à l'écran précédent
     back() {
         if (this.screenHistory.length > 0) {
-            // Récupérer l'écran précédent de l'historique
-            const previousScreen = this.screenHistory.pop();
-            this.mainScreen = previousScreen;  // Met à jour l'écran principal avec l'écran précédent
+            this.mainScreen = this.screenHistory.pop();
         }
+    }
+
+    // ✅ LOGIQUE PANIER
+
+    addToCart(product) {
+        const existing = this.cart.find((item) => item.id === product.id);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            this.cart.push({ ...product, quantity: 1 });
+        }
+    }
+
+    increaseQuantity(productId) {
+        const item = this.cart.find((p) => p.id === productId);
+        if (item) {
+            item.quantity += 1;
+        }
+    }
+
+    decreaseQuantity(productId) {
+        const index = this.cart.findIndex((p) => p.id === productId);
+        if (index !== -1) {
+            const item = this.cart[index];
+            item.quantity -= 1;
+            if (item.quantity <= 0) {
+                this.cart.splice(index, 1);
+            }
+        }
+    }
+
+    clearCart() {
+        this.cart.length = 0;
+    }
+
+    getCartTotal() {
+        return this.cart.reduce((total, item) => total + item.list_price * item.quantity, 0);
     }
 }
 

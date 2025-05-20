@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="refuge_aventuriers.CartScreen">
+        <div class="refuge-main-screen">
+            <Header></Header>
+            <main class="refuge-main-content">
+                <div class="cart-list">
+                    <t t-if="refuge.cart.length === 0">
+                        <p class="empty-cart-message">Votre panier est vide.</p>
+                    </t>
+                    <t t-foreach="refuge.cart" t-as="item" t-key="item.id">
+                        <div class="cart-item">
+                            <img t-if="item.image_url" t-att-src="item.image_url" class="cart-image" alt="Image produit" />
+                            <div class="cart-details">
+                                <div class="cart-name"><t t-esc="item.name" /></div>
+                                <div class="cart-info">
+                                    <span class="cart-price"><t t-esc="formatPrice(item.list_price)" /></span>
+                                    <div class="cart-quantity-controls">
+                                        <button t-on-click="() => refuge.decreaseQuantity(item.id)" class="quantity-button">−</button>
+                                        <span><t t-esc="item.quantity" /></span>
+                                        <button t-on-click="() => refuge.increaseQuantity(item.id)" class="quantity-button">+</button>
+                                    </div>
+                                    <span class="cart-total">= <t t-esc="formatPrice(item.list_price * item.quantity)" /></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <div class="cart-total-bar">
+                        Total : <t t-esc="formatPrice(refuge.getCartTotal())" />
+                    </div>
+                </div>
+            </main>
+            <Footer></Footer>
+        </div>
+    </t>
+</templates>

@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { Component } from "@odoo/owl";
+import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
 
 export class WhiteWineLine extends Component {
     static template = "refuge_aventuriers.WhiteWineLine";
@@ -15,5 +16,19 @@ export class WhiteWineLine extends Component {
 
     formatPrice(price) {
         return price.toFixed(2) + " €";
+    }
+
+    setup() {
+        this.refuge = useRefuge();
+    }
+
+    onAddToCart(ev) {
+        ev.stopPropagation();
+        this.refuge.addToCart({
+            id: this.props.whitewineId,
+            name: this.props.name,
+            list_price: this.props.whitewinePrice,
+            image_url: this.props.imageUrl,
+        });
     }
 }

@@ -12,7 +12,7 @@
                 <div class="spirit-name"><t t-esc="props.name" /></div>
                 <div class="spirit-price">
                     <t t-esc="formatPrice(props.spiritPrice)" />
-                    <button t-on-click="props.onAddToCart" class="cart-button" aria-label="Ajouter au panier">
+                    <button t-on-click="onAddToCart" class="cart-button" aria-label="Ajouter au panier">
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                     </button>
                 </div>
