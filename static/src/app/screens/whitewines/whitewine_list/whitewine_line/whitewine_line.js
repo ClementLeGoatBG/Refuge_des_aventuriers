@@ -8,8 +8,12 @@ export class WhiteWineLine extends Component {
     static props = {
         name: String,
         whitewinePrice: Number,
-        imageUrl: String,
+        imageUrl: { type: String, optional: true },
         whitewineId: Number,
         onClick: { type: Function, optional: true },
     };
+
+    formatPrice(price) {
+        return price.toFixed(2) + " €";
+    }
 }

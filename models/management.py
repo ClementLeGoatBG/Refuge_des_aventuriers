@@ -20,14 +20,14 @@ class RefugeManagement(models.Model):
             ]
         )
 
-        # # Ajouter l'URL de l'image pour chaque produit
-        # for product in products:
-        #     if product.get('image_1920'):
-        #         product[
-        #             # CHANGER LIEN IMG SI PLUS SUR LOCALHOST
-        #             'image_url'] = f"http://localhost:8070/web/image?model=product.template&id={product['id']}&field=image_1920"
-        #     else:
-        #         product['image_url'] = None
+        # Ajouter l'URL de l'image pour chaque produit
+        for product in products:
+            if product.get('image_1920'):
+                product[
+                    # CHANGER LIEN IMG SI PLUS SUR LOCALHOST
+                    'image_url'] = f"http://localhost:8070/web/image?model=product.template&id={product['id']}&field=image_1920"
+            else:
+                product['image_url'] = None
 
         return {
             "product.template": products,
