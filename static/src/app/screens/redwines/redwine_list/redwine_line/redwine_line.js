@@ -7,6 +7,8 @@ export class RedWineLine extends Component {
 
     static props = {
         name: String,
+        redwinePrice: Number,
+        imageUrl: String,
         redwineId: Number,
         onClick: { type: Function, optional: true },
     };

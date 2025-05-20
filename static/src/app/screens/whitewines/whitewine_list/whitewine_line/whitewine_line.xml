@@ -2,7 +2,13 @@
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.WhiteWineLine">
          <tr t-on-click="props.onClick">
-             <td class="whitewine-list-name"><t t-esc="props.name" /></td>
+             <td class="whitewine-list-name"><t t-esc="props.name" />
+                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="whitewine-image" />
+             </td>
+             <td class="whitewine-list-name"><t t-esc="props.name" />
+            </td>
+            <td class="whitewine-list-price"><t t-esc="props.whitewinePrice" /> €
+            </td>
          </tr>
     </t>
 </templates>

@@ -7,8 +7,11 @@
                  <t t-foreach="refuge.products" t-as="product" t-key="product.id">
                      <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Alcool Fort'">
                          <span>
-                             <SpiritLine name="product.name"
-                                         spiritId="product.id"/>
+                             <SpiritLine
+                                     name="product.name"
+                                     spiritPrice="product.list_price"
+                                     spiritId="product.id"
+                                     imageUrl="product.image_url"/>
                          </span>
                      </div>
                  </t>
