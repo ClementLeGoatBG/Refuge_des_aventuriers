@@ -4,9 +4,9 @@
         <div class="refuge-main-screen">
             <Header></Header>
             <main class="refuge-main-content">
-                <div class="cart-list">
+                <div class="cart-items-container">
                     <t t-if="refuge.cart.length === 0">
-                        <p class="empty-cart-message">Votre panier est vide.</p>
+                        <div class="empty-cart-message">Votre panier est vide.</div>
                     </t>
                     <t t-foreach="refuge.cart" t-as="item" t-key="item.id">
                         <div class="cart-item">
@@ -28,6 +28,9 @@
                     <div class="cart-total-bar">
                         Total : <t t-esc="formatPrice(refuge.getCartTotal())" />
                     </div>
+                    <t t-if="refuge.cart.length > 0">
+                        <button t-on-click="() => refuge.clearCart()" class="clear-cart-button">Vider le panier</button>
+                    </t>
                 </div>
             </main>
             <Footer></Footer>
