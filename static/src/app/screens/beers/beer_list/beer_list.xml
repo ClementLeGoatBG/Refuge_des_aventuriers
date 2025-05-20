@@ -3,20 +3,43 @@
      <t t-name="refuge_aventuriers.BeerListScreen">
          <div class="refuge-main-screen">
              <Header></Header>
-             <main class="refuge-main-content">
-                <t t-foreach="refuge.products" t-as="product" t-key="product.id">
-                    <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Bière'">
-                        <span>
+             <main class="refuge-main-content beer-list-container">
+                <div class="beer-list">
+                    <t t-foreach="refuge.products" t-as="product" t-key="product.id">
+                        <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Bière'" class="beer-list-item">
                             <BeerLine
                                 name="product.name"
                                 beerPrice="product.list_price"
                                 beerId="product.id"
                                 imageUrl="product.image_url"/>
-                        </span>
-                    </div>
-                </t>
+                        </div>
+                    </t>
+                </div>
              </main>
              <Footer></Footer>
          </div>
     </t>
 </templates>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
+<!--     <t t-name="refuge_aventuriers.BeerListScreen">-->
+<!--         <div class="refuge-main-screen">-->
+<!--             <Header></Header>-->
+<!--             <main class="refuge-main-content">-->
+<!--                <t t-foreach="refuge.products" t-as="product" t-key="product.id">-->
+<!--                    <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Bière'">-->
+<!--                        <span>-->
+<!--                            <BeerLine-->
+<!--                                name="product.name"-->
+<!--                                beerPrice="product.list_price"-->
+<!--                                beerId="product.id"-->
+<!--                                imageUrl="product.image_url"/>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--             </main>-->
+<!--             <Footer></Footer>-->
+<!--         </div>-->
+<!--    </t>-->
+<!--</templates>-->

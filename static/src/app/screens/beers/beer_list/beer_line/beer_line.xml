@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-name="refuge_aventuriers.BeerLine">
-        <tr t-on-click="props.onClick">
-            <td class="beer-list-image">
+        <div class="beer-item" t-on-click="props.onClick">
+            <div class="beer-image-container">
                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="beer-image" />
-            </td>
-            <td class="beer-list-name"><t t-esc="props.name" />
-            </td>
-            <td class="beer-list-price"><t t-esc="props.beerPrice" /> €
-            </td>
-        </tr>
+                <div class="beer-image-placeholder">
+                    <i class="fa fa-beer" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="beer-details">
+                <div class="beer-name"><t t-esc="props.name" /></div>
+                <div class="beer-price"><t t-esc="formatPrice(props.beerPrice)" /></div>
+            </div>
+        </div>
     </t>
 </templates>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
+<!--    <t t-name="refuge_aventuriers.BeerLine">-->
+<!--        <tr t-on-click="props.onClick">-->
+<!--            <td class="beer-list-image">-->
+<!--                <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="beer-image" />-->
+<!--            </td>-->
+<!--            <td class="beer-list-name"><t t-esc="props.name" />-->
+<!--            </td>-->
+<!--            <td class="beer-list-price"><t t-esc="props.beerPrice" /> €-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </t>-->
+<!--</templates>-->
