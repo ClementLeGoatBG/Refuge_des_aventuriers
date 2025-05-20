@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.RedWineLine">
-         <tr t-on-click="props.onClick">
-             <td class="redwine-list-name"><t t-esc="props.name" />
-                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="redwine-image" />
-             </td>
-             <td class="redwine-list-name"><t t-esc="props.name" />
-            </td>
-            <td class="redwine-list-price"><t t-esc="props.redwinePrice" /> €
-            </td>
-         </tr>
+        <div class="redwine-item" t-on-click="props.onClick">
+            <div class="redwine-image-container">
+                <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="redwine-image" />
+                <div class="redwine-image-placeholder">
+                    <i class="fa fa-wine-glass" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="redwine-details">
+                <div class="redwine-name"><t t-esc="props.name" /></div>
+                <div class="redwine-price"><t t-esc="formatPrice(props.redwinePrice)" /></div>
+            </div>
+        </div>
     </t>
 </templates>

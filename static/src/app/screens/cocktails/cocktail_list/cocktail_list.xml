@@ -3,18 +3,18 @@
      <t t-name="refuge_aventuriers.CocktailListScreen">
          <div class="refuge-main-screen">
              <Header></Header>
-             <main class="refuge-main-content">
-                 <t t-foreach="refuge.products" t-as="product" t-key="product.id">
-                     <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Cocktail'">
-                         <span>
-                             <CocktailLine
-                                     name="product.name"
-                                     cocktailPrice="product.list_price"
-                                     cocktailId="product.id"
-                                     imageUrl="product.image_url"/>
-                         </span>
-                     </div>
-                 </t>
+             <main class="refuge-main-content cocktail-list-container">
+                <div class="cocktail-list">
+                    <t t-foreach="refuge.products" t-as="product" t-key="product.id">
+                        <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Cocktail'" class="cocktail-list-item">
+                            <CocktailLine
+                                name="product.name"
+                                cocktailPrice="product.list_price"
+                                cocktailId="product.id"
+                                imageUrl="product.image_url"/>
+                        </div>
+                    </t>
+                </div>
              </main>
              <Footer></Footer>
          </div>

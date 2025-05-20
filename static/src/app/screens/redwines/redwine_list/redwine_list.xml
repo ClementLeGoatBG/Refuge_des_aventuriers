@@ -3,18 +3,18 @@
      <t t-name="refuge_aventuriers.RedWineListScreen">
          <div class="refuge-main-screen">
              <Header></Header>
-             <main class="refuge-main-content">
-                 <t t-foreach="refuge.products" t-as="product" t-key="product.id">
-                     <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Vin / Rouge'">
-                         <span>
-                             <RedWineLine
-                                     name="product.name"
-                                     redwinePrice="product.list_price"
-                                     redwineId="product.id"
-                                     imageUrl="product.image_url"/>
-                         </span>
-                     </div>
-                 </t>
+             <main class="refuge-main-content redwine-list-container">
+                <div class="redwine-list">
+                    <t t-foreach="refuge.products" t-as="product" t-key="product.id">
+                        <div t-if="product.categ_id[1] == 'All / Saleable / PoS / Vin / Rouge'" class="redwine-list-item">
+                            <RedWineLine
+                                name="product.name"
+                                redwinePrice="product.list_price"
+                                redwineId="product.id"
+                                imageUrl="product.image_url"/>
+                        </div>
+                    </t>
+                </div>
              </main>
              <Footer></Footer>
          </div>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.CocktailLine">
-         <tr t-on-click="props.onClick">
-             <td class="cocktail-list-name"><t t-esc="props.name" />
-                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="cocktail-image" />
-             </td>
-             <td class="cocktail-list-name"><t t-esc="props.name" />
-            </td>
-            <td class="cocktail-list-price"><t t-esc="props.cocktailPrice" /> €
-            </td>
-         </tr>
+        <div class="cocktail-item" t-on-click="props.onClick">
+            <div class="cocktail-image-container">
+                <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="cocktail-image" />
+                <div class="cocktail-image-placeholder">
+                    <i class="fa fa-glass" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="cocktail-details">
+                <div class="cocktail-name"><t t-esc="props.name" /></div>
+                <div class="cocktail-price"><t t-esc="formatPrice(props.cocktailPrice)" /></div>
+            </div>
+        </div>
     </t>
 </templates>
