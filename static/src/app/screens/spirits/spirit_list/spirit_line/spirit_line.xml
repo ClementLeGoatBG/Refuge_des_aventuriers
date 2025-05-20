@@ -4,13 +4,18 @@
         <div class="spirit-item" t-on-click="props.onClick">
             <div class="spirit-image-container">
                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="spirit-image" />
-                <div class="spirit-image-placeholder">
-                    <i class="fa fa-spirit" aria-hidden="true"></i>
+                <div t-if="!props.imageUrl" class="spirit-image-placeholder">
+                    <i class="fa fa-glass" aria-hidden="true"></i>
                 </div>
             </div>
             <div class="spirit-details">
                 <div class="spirit-name"><t t-esc="props.name" /></div>
-                <div class="spirit-price"><t t-esc="formatPrice(props.spiritPrice)" /></div>
+                <div class="spirit-price">
+                    <t t-esc="formatPrice(props.spiritPrice)" />
+                    <button t-on-click="props.onAddToCart" class="cart-button" aria-label="Ajouter au panier">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </t>

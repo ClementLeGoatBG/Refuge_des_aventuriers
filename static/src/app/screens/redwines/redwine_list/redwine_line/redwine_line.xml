@@ -4,13 +4,18 @@
         <div class="redwine-item" t-on-click="props.onClick">
             <div class="redwine-image-container">
                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="redwine-image" />
-                <div class="redwine-image-placeholder">
-                    <i class="fa fa-wine-glass" aria-hidden="true"></i>
+                <div t-if="!props.imageUrl" class="redwine-image-placeholder">
+                    <i class="fa fa-glass" aria-hidden="true"></i>
                 </div>
             </div>
             <div class="redwine-details">
                 <div class="redwine-name"><t t-esc="props.name" /></div>
-                <div class="redwine-price"><t t-esc="formatPrice(props.redwinePrice)" /></div>
+                <div class="redwine-price">
+                    <t t-esc="formatPrice(props.redwinePrice)" />
+                    <button t-on-click="props.onAddToCart" class="cart-button" aria-label="Ajouter au panier">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </t>

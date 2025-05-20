@@ -1,3 +1,5 @@
+/* Ajoutez ce CSS à votre fichier CSS existant */
+
 /* Styles pour la liste de spirit */
 .spirit-list-container {
     padding: 1rem;
@@ -88,4 +90,8 @@
     font-size: 1.2rem;
     color: var(--accent-orange);
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
 }
