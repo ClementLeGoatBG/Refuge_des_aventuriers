@@ -22,6 +22,9 @@
                 <div class="header-right">
                     <button class="account-button" t-on-click="() => refuge.showScreen('CartScreen')">
                         <i class="fa fa-shopping-cart"></i>
+                        <span t-if="refuge.cart.length > 0" class="cart-badge">
+                            <t t-esc="refuge.cart.reduce((sum, item) => sum + item.quantity, 0)" />
+                        </span>
                     </button>
                 </div>
             </div>

@@ -9,4 +9,8 @@ export class Header extends Component {
     setup() {
         this.refuge = useRefuge();
     }
+
+    get totalQuantity() {
+        return this.refuge.cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
 }
