@@ -31,4 +31,8 @@ export class WhiteWineLine extends Component {
             image_url: this.props.imageUrl,
         });
     }
+
+    onProductClick() {
+        this.refuge.showScreen("ProductDetailScreen", { productId: this.props.whitewineId });
+    }
 }

@@ -31,4 +31,8 @@ export class RedWineLine extends Component {
             image_url: this.props.imageUrl,
         });
     }
+
+    onProductClick() {
+        this.refuge.showScreen("ProductDetailScreen", { productId: this.props.redwineId });
+    }
 }

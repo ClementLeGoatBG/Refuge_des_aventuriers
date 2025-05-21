@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.RedWineLine">
-        <div class="redwine-item" t-on-click="props.onClick">
+        <div class="redwine-item" t-on-click="onProductClick">
             <div class="redwine-image-container">
                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="redwine-image" />
                 <div t-if="!props.imageUrl" class="redwine-image-placeholder">

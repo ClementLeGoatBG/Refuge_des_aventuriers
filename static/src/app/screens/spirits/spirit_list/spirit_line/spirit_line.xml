@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.SpiritLine">
-        <div class="spirit-item" t-on-click="props.onClick">
+        <div class="spirit-item" t-on-click="onProductClick">
             <div class="spirit-image-container">
                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="spirit-image" />
                 <div t-if="!props.imageUrl" class="spirit-image-placeholder">

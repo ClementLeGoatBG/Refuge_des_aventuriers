@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
      <t t-name="refuge_aventuriers.CocktailLine">
-        <div class="cocktail-item" t-on-click="props.onClick">
+        <div class="cocktail-item" t-on-click="onProductClick">
             <div class="cocktail-image-container">
                 <img t-if="props.imageUrl" t-att-src="props.imageUrl" alt="Product Image" class="cocktail-image" />
                 <div t-if="!props.imageUrl" class="cocktail-image-placeholder">
