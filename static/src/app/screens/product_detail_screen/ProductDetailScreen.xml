@@ -47,31 +47,23 @@
                             <p><t t-esc="product.categ_id[1]" /></p>
                         </div>
 
-                        <div t-if="product.categ_id[1].includes('Bière')" class="product-ingredients">
+                        <div class="product-ingredients">
                             <h2>Ingrédients</h2>
-                            <p>Eau, Malt d'orge, Houblon, Levure</p>
+                            <t t-if="hasIngredients()">
+                                <ul class="ingredients-list">
+                                    <t t-foreach="product.ingredients" t-as="ingredient" t-key="ingredient_index">
+                                        <li class="ingredient-item">
+                                            <span class="ingredient-name"><t t-esc="ingredient.product_name" /></span>
+                                            <span class="ingredient-quantity">
+                                                <t t-esc="ingredient.quantity" /> <t t-esc="ingredient.uom" />
+                                            </span>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </t>
+                            <p t-if="!hasIngredients()">Aucun ingrédient disponible pour ce produit.</p>
                         </div>
 
-                        <div t-if="product.categ_id[1].includes('Bière')" class="product-details">
-                            <div class="product-details-grid">
-                                <div class="product-detail-item">
-                                    <span class="detail-label">Degré d'alcool</span>
-                                    <span class="detail-value">5.5%</span>
-                                </div>
-                                <div class="product-detail-item">
-                                    <span class="detail-label">Volume</span>
-                                    <span class="detail-value">33cl</span>
-                                </div>
-                                <div class="product-detail-item">
-                                    <span class="detail-label">Type</span>
-                                    <span class="detail-value">Blonde</span>
-                                </div>
-                                <div class="product-detail-item">
-                                    <span class="detail-label">Origine</span>
-                                    <span class="detail-value">France</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </main>

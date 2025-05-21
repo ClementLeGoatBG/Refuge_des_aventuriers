@@ -20,10 +20,12 @@ export class ProductDetailScreen extends Component {
         return this.refuge.products.find(product => product.id === productId);
     }
 
+    // 💰 Format du prix
     formatPrice(price) {
         return price.toFixed(2) + " €";
     }
 
+    // 🛒 Ajout simple au panier
     onAddToCart() {
         this.refuge.addToCart({
             id: this.product.id,
@@ -31,10 +33,6 @@ export class ProductDetailScreen extends Component {
             list_price: this.product.list_price,
             image_url: this.product.image_url,
         });
-    }
-
-    onBack() {
-        this.refuge.back();
     }
 
     increaseQuantity() {
@@ -49,11 +47,27 @@ export class ProductDetailScreen extends Component {
         }
     }
 
+    // 🧺 Ajout avec quantité
     addToCartWithQuantity() {
         for (let i = 0; i < this.quantity; i++) {
             this.onAddToCart();
         }
+
+        // Optionnel : remettre à 1
+        this.quantity = 1;
+        this.render();
     }
+
+    onBack() {
+        this.refuge.back();
+    }
+
+    // 🧪 Vérifie la présence d'ingrédients
+    hasIngredients() {
+        return this.product.ingredients && this.product.ingredients.length > 0;
+    }
+
+
 }
 
 registry.category("refuge_screens").add("ProductDetailScreen", ProductDetailScreen);
