@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="refuge_aventuriers.ProductDetailScreen">
+        <div class="refuge-main-screen">
+            <Header></Header>
+            <main class="refuge-main-content product-detail-container">
+                <div class="product-detail">
+                    <div class="product-header">
+                        <h1 class="product-title"><t t-esc="product.name" /></h1>
+                    </div>
+
+                    <div class="product-image-container">
+                        <img t-if="product.image_url" t-att-src="product.image_url" alt="Product Image" class="product-detail-image" />
+                        <div t-if="!product.image_url" class="product-image-placeholder">
+                            <i class="fa fa-glass" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-price-section">
+                            <div class="product-price-container">
+                                <span class="product-price"><t t-esc="formatPrice(product.list_price)" /></span>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" t-on-click="decreaseQuantity">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                    <span class="quantity-value"><t t-esc="quantity" /></span>
+                                    <button class="quantity-btn" t-on-click="increaseQuantity">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button class="add-to-cart-btn" t-on-click="addToCartWithQuantity">
+                                Ajouter au panier
+                                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="product-description">
+                            <h2>Description</h2>
+                            <p t-if="product.description"><t t-esc="product.description" /></p>
+                            <p t-if="!product.description">Aucune description disponible pour ce produit.</p>
+                        </div>
+
+                        <div class="product-category">
+                            <h2>Catégorie</h2>
+                            <p><t t-esc="product.categ_id[1]" /></p>
+                        </div>
+
+                        <div t-if="product.categ_id[1].includes('Bière')" class="product-ingredients">
+                            <h2>Ingrédients</h2>
+                            <p>Eau, Malt d'orge, Houblon, Levure</p>
+                        </div>
+
+                        <div t-if="product.categ_id[1].includes('Bière')" class="product-details">
+                            <div class="product-details-grid">
+                                <div class="product-detail-item">
+                                    <span class="detail-label">Degré d'alcool</span>
+                                    <span class="detail-value">5.5%</span>
+                                </div>
+                                <div class="product-detail-item">
+                                    <span class="detail-label">Volume</span>
+                                    <span class="detail-value">33cl</span>
+                                </div>
+                                <div class="product-detail-item">
+                                    <span class="detail-label">Type</span>
+                                    <span class="detail-value">Blonde</span>
+                                </div>
+                                <div class="product-detail-item">
+                                    <span class="detail-label">Origine</span>
+                                    <span class="detail-value">France</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <Footer></Footer>
+        </div>
+    </t>
+</templates>

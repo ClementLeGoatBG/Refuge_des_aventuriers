@@ -1,11 +1,9 @@
 /** @odoo-module */
-
 import { Component } from "@odoo/owl";
 import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
 
 export class BeerLine extends Component {
     static template = "refuge_aventuriers.BeerLine";
-
     static props = {
         name: String,
         beerPrice: Number,
@@ -30,5 +28,9 @@ export class BeerLine extends Component {
             list_price: this.props.beerPrice,
             image_url: this.props.imageUrl,
         });
+    }
+
+    onProductClick() {
+        this.refuge.showScreen("ProductDetailScreen", { productId: this.props.beerId });
     }
 }
