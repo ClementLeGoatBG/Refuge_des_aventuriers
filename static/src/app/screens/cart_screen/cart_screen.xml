@@ -2,42 +2,105 @@
 <templates id="template" xml:space="preserve">
     <t t-name="refuge_aventuriers.CartScreen">
         <div class="refuge-main-screen">
-            <Header></Header>
+            <Header/>
             <main class="refuge-main-content">
-                <div class="cart-items-container">
-                    <t t-if="refuge.cart.length === 0">
-                        <div class="empty-cart-message">Votre panier est vide.</div>
-                    </t>
-                    <t t-foreach="refuge.cart" t-as="item" t-key="item.id">
-                        <div class="cart-item">
-                            <img t-if="item.image_url" t-att-src="item.image_url" class="cart-image" alt="Image produit" />
-                            <div class="cart-details">
-                                <div class="cart-name"><t t-esc="item.name" /></div>
-                                <div class="cart-info">
-                                    <span class="cart-price"><t t-esc="formatPrice(item.list_price)" /></span>
-                                    <div class="cart-quantity-controls">
-                                        <button t-on-click="() => refuge.decreaseQuantity(item.id)" class="quantity-button">−</button>
-                                        <span><t t-esc="item.quantity" /></span>
-                                        <button t-on-click="() => refuge.increaseQuantity(item.id)" class="quantity-button">+</button>
+                <div class="cart-container">
+
+                    <div class="cart-items-container">
+                        <t t-if="refuge.cart.length === 0">
+                            <div class="empty-cart-message">Votre panier est vide.</div>
+                        </t>
+                        <t t-foreach="refuge.cart" t-as="item" t-key="item.id">
+                            <div class="cart-item">
+                                <img t-if="item.image_url" t-att-src="item.image_url" class="cart-image" alt="Image produit"/>
+                                <div class="cart-details">
+                                    <div class="cart-name"><t t-esc="item.name"/></div>
+                                    <div class="cart-info">
+                                        <span class="cart-price"><t t-esc="formatPrice(item.list_price)"/></span>
+                                        <div class="cart-quantity-controls">
+                                            <button t-on-click="() => refuge.decreaseQuantity(item.id)" class="quantity-button">−</button>
+                                            <span><t t-esc="item.quantity"/></span>
+                                            <button t-on-click="() => refuge.increaseQuantity(item.id)" class="quantity-button">+</button>
+                                        </div>
+                                        <span class="cart-total">= <t t-esc="formatPrice(item.list_price * item.quantity)"/></span>
                                     </div>
-                                    <span class="cart-total">= <t t-esc="formatPrice(item.list_price * item.quantity)" /></span>
                                 </div>
                             </div>
+                        </t>
+                        <div class="cart-total-bar">
+                            Total : <t t-esc="formatPrice(refuge.getCartTotal())"/>
                         </div>
-                    </t>
-                    <div class="cart-total-bar">
-                        Total : <t t-esc="formatPrice(refuge.getCartTotal())" />
                     </div>
+
                     <t t-if="refuge.cart.length > 0">
-                        <div class="cart-table-number">
-                            <input type="number" t-model="state.tableNumber" placeholder="Numéro de table..." class="table-input" min="1" step="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+                        <div class="table-section">
+                            <h2>Sélectionnez une table</h2>
+
+                            <t t-if="state.error">
+                                <div class="error-message">
+                                    <i class="fa fa-exclamation-triangle"/>
+                                    <t t-esc="state.error"/>
+                                </div>
+                            </t>
+
+                            <t t-if="state.isLoading">
+                                <div class="loading">
+                                    <i class="fa fa-spinner fa-spin"/> Chargement...
+                                </div>
+                            </t>
+
+                            <t t-else="">
+                                <div class="tables-grid">
+                                    <t t-foreach="state.tables" t-as="table" t-key="table.id">
+                                        <div t-on-click="() => state.selectedTable = table"
+                                             class="table-card"
+                                             t-att-class="{
+                                                 'selected': state.selectedTable?.id === table.id,
+                                                 'inactive': !table.active
+                                             }">
+                                            <div class="table-number">
+                                                <t t-esc="table.name"/>
+                                                <t t-if="!table.active"> (Inactive)</t>
+                                            </div>
+                                            <div class="table-info">
+                                                <span><i class="fa fa-chair"/> <t t-esc="table.seats"/></span>
+                                                <span><i class="fa fa-layer-group"/> <t t-esc="table.floor_name"/></span>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <t t-if="state.selectedTable">
+                                    <div class="selection-info">
+                                        Table sélectionnée : <strong><t t-esc="state.selectedTable.name"/></strong>
+                                        <t t-if="state.posSession">
+                                            (Session POS : <t t-esc="state.posSession.name"/>)
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
                         </div>
-                        <button t-on-click="submitOrder" class="validate-order-button">Valider la commande</button>
-                        <button t-on-click="() => refuge.clearCart()" class="clear-cart-button">Vider le panier</button>
+
+                        <div class="validation-buttons">
+                            <button t-on-click="() => refuge.clearCart()" class="btn-clear">
+                                <i class="fa fa-trash"/> Vider
+                            </button>
+                            <button t-on-click="submitOrder"
+                                    class="btn-validate"
+                                    t-att-disabled="!state.selectedTable || state.isLoading">
+                                <t t-if="state.isLoading">
+                                    <i class="fa fa-spinner fa-spin"/> Envoi...
+                                </t>
+                                <t t-else="">
+                                    <i class="fa fa-check"/> Valider
+                                </t>
+                            </button>
+                        </div>
                     </t>
+
                 </div>
             </main>
-            <Footer></Footer>
+            <Footer/>
         </div>
     </t>
 </templates>

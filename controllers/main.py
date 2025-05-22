@@ -1,6 +1,7 @@
-from odoo import http
+from odoo import http, fields
 from odoo.http import request
 import logging
+from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
@@ -16,111 +17,147 @@ class RefugeController(http.Controller):
         response.headers["Cache-Control"] = "no-store"
         return response
 
-    @http.route("/refuge/submit_order", type="json", auth="public", csrf=False)
-    def submit_order(self, **kwargs):
+    @http.route("/refuge/get_restaurant_data", type="json", auth="public", csrf=False)
+    def get_restaurant_data(self, **kwargs):
+        """Récupère toutes les données nécessaires en une seule requête"""
         try:
-            table_number = kwargs.get("table_number")
-            items = kwargs.get("items", [])
-            total = kwargs.get("total", 0.0)
-
-            # Log de la commande reçue
-            _logger.info(f"Commande reçue - Table: {table_number}, Total: {total}, Produits: {items}")
-
-            # Récupérer la session POS active (ou créer une session par défaut)
-            pos_config = request.env['pos.config'].sudo().search([('name', '=', 'Refuge Aventuriers')], limit=1)
-            if not pos_config:
-                # Créer une configuration POS par défaut si elle n'existe pas
-                pos_config = request.env['pos.config'].sudo().create({
-                    'name': 'Refuge Aventuriers',
-                    'journal_id': request.env['account.journal'].sudo().search([('type', '=', 'sale')], limit=1).id,
-                    'pricelist_id': request.env['product.pricelist'].sudo().search([], limit=1).id,
-                })
-
-            # Récupérer ou créer une session POS
+            # Trouver la première session POS ouverte
             pos_session = request.env['pos.session'].sudo().search([
-                ('config_id', '=', pos_config.id),
                 ('state', '=', 'opened')
-            ], limit=1)
+            ], limit=1, order='start_at desc')
 
             if not pos_session:
-                # Créer une nouvelle session si aucune n'est ouverte
-                pos_session = request.env['pos.session'].sudo().create({
-                    'config_id': pos_config.id,
-                    'user_id': request.env.user.id,
-                })
-                pos_session.action_pos_session_open()
+                return {
+                    'success': False,
+                    'message': 'Aucune session POS ouverte trouvée'
+                }
 
-            # Créer la commande POS
-            pos_order = request.env['pos.order'].sudo().create({
-                'session_id': pos_session.id,
-                'partner_id': False,  # Client anonyme
-                'pricelist_id': pos_config.pricelist_id.id,
-                'fiscal_position_id': False,
-                'table_id': self._get_or_create_table(table_number),
-                'amount_total': total,
-                'amount_tax': 0.0,  # À calculer selon vos besoins
-                'amount_paid': 0.0,
-                'amount_return': 0.0,
-                'pos_reference': f"Refuge-{table_number}-{pos_session.id}",
-                'date_order': request.env.cr.now(),
-                'state': 'draft',
-            })
-
-            # Ajouter les lignes de commande
-            for item in items:
-                product = request.env['product.product'].sudo().search([('id', '=', item.get('id'))], limit=1)
-                if product:
-                    request.env['pos.order.line'].sudo().create({
-                        'order_id': pos_order.id,
-                        'product_id': product.id,
-                        'qty': item.get('quantity', 1),
-                        'price_unit': item.get('price', 0.0),
-                        'price_subtotal': item.get('price', 0.0) * item.get('quantity', 1),
-                        'price_subtotal_incl': item.get('price', 0.0) * item.get('quantity', 1),
-                    })
-
-            # Optionnel : Confirmer la commande automatiquement
-            # pos_order.action_pos_order_paid()
-
-            _logger.info(f"Commande POS créée avec succès - ID: {pos_order.id}")
+            # Récupérer toutes les tables du restaurant
+            tables = request.env['restaurant.table'].sudo().search([])
+            tables_data = [{
+                'id': table.id,
+                'name': table.name,
+                'floor_name': table.floor_id.name,
+                'seats': table.seats,
+                'active': table.active,
+                'pos_session_id': pos_session.id
+            } for table in tables]
 
             return {
-                "success": True,
-                "message": f"Commande bien reçue pour la table {table_number}",
-                "order_id": pos_order.id,
-                "pos_reference": pos_order.pos_reference
+                'success': True,
+                'tables': tables_data,
+                'pos_session': {
+                    'id': pos_session.id,
+                    'name': pos_session.name,
+                    'config_id': pos_session.config_id.id
+                }
             }
 
         except Exception as e:
-            _logger.error(f"Erreur lors de la création de la commande POS: {str(e)}")
+            _logger.error(f"Error getting restaurant data: {str(e)}")
             return {
-                "success": False,
-                "message": f"Erreur lors de la création de la commande: {str(e)}"
+                'success': False,
+                'message': f"Erreur serveur: {str(e)}"
             }
 
-    def _get_or_create_table(self, table_number):
-        """Récupère ou crée une table restaurant"""
+    @http.route("/refuge/submit_order", type="json", auth="public", csrf=False)
+    def submit_order(self, **kwargs):
         try:
-            # Chercher si le module restaurant est installé
-            restaurant_table = request.env['restaurant.table'].sudo().search([
-                ('name', '=', f"Table {table_number}")
-            ], limit=1)
+            # Conversion sécurisée des données
+            def to_int(value, default=0):
+                try:
+                    return int(float(value))
+                except:
+                    return default
 
-            if not restaurant_table:
-                # Créer la table si elle n'existe pas
-                restaurant_floor = request.env['restaurant.floor'].sudo().search([], limit=1)
-                if not restaurant_floor:
-                    restaurant_floor = request.env['restaurant.floor'].sudo().create({
-                        'name': 'Salle principale'
-                    })
+            def to_float(value, default=0.0):
+                try:
+                    return float(value)
+                except:
+                    return default
 
-                restaurant_table = request.env['restaurant.table'].sudo().create({
-                    'name': f"Table {table_number}",
-                    'floor_id': restaurant_floor.id,
-                    'seats': 4,  # Nombre de places par défaut
-                })
+            # Données d'entrée
+            table_id = to_int(kwargs.get("table_id"))
+            items = kwargs.get("items", [])
+            total = to_float(kwargs.get("total"))
 
-            return restaurant_table.id
-        except:
-            # Si le module restaurant n'est pas installé, retourner False
-            return False
+            # Vérification de la table
+            table = request.env['restaurant.table'].sudo().browse(table_id)
+            if not table.exists():
+                return {"success": False, "message": "Table introuvable"}
+
+            # Session POS
+            pos_session = request.env['pos.session'].sudo().search([
+                ('state', '=', 'opened')
+            ], limit=1, order='start_at desc')
+            if not pos_session:
+                return {"success": False, "message": "Aucune session POS ouverte"}
+
+            # Partenaire
+            partner = request.env['res.partner'].sudo().search([
+                ('name', '=', 'Client Web')
+            ], limit=1) or request.env['res.partner'].sudo().create({
+                'name': 'Client Web',
+                'company_type': 'company',
+            })
+
+            # Préparation des lignes
+            order_lines = []
+            for item in items:
+                product = request.env['product.product'].sudo().browse(to_int(item.get("id")))
+                if product.exists():
+                    qty = to_float(item.get("quantity", 1))
+                    price = to_float(item.get("price"))
+                    order_lines.append((0, 0, {
+                        'product_id': product.id,
+                        'qty': qty,
+                        'price_unit': price,
+                        'price_subtotal': price * qty,
+                        'price_subtotal_incl': price * qty,
+                        'tax_ids': [(6, 0, product.taxes_id.ids)],
+                    }))
+
+            # Formatage correct de la date pour Odoo
+            now_utc = fields.Datetime.now()
+            date_order = now_utc.strftime("%Y-%m-%d %H:%M:%S")
+
+            # Structure de données conforme à Odoo
+            order_data = {
+                'data': {
+                    'name': f"WEB-{fields.Datetime.now().strftime('%Y%m%d-%H%M%S')}",
+                    'pos_session_id': pos_session.id,
+                    'partner_id': partner.id,
+                    'table_id': table.id,
+                    'user_id': pos_session.user_id.id,
+                    'sequence_number': pos_session.order_count + 1,
+                    'lines': order_lines,
+                    'statement_ids': [],
+                    'amount_total': total,
+                    'amount_tax': 0.0,
+                    'amount_paid': 0.0,
+                    'amount_return': 0.0,
+                    'date_order': fields.Datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    'state': 'draft',
+                    'creation_date': fields.Datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    'uid': pos_session.user_id.id,
+                    'fiscal_position_id': False,
+                    'to_invoice': False,
+                    'access_token': False,
+                }
+            }
+
+            # Création de la commande
+            order_ids = request.env['pos.order'].sudo().create_from_ui([order_data], draft=True)
+
+            return {
+                "success": True,
+                "message": f"Commande créée pour la table {table.name}",
+                "order_id": order_ids[0]['id'] if order_ids else None
+            }
+
+        except Exception as e:
+            _logger.error(f"Erreur création commande: {str(e)}")
+            return {
+                "success": False,
+                "message": f"Erreur technique: {str(e)}"
+            }

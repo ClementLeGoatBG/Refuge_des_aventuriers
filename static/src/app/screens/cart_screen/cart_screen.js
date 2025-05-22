@@ -1,6 +1,6 @@
 /** @odoo-module */
 
-import { Component, useState } from "@odoo/owl";
+import { Component, useState, onWillStart } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
 import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
@@ -15,10 +15,38 @@ export class CartScreen extends Component {
         this.refuge = useRefuge();
         this.rpc = useService("rpc");
 
-        // variable réactive pour t-model
         this.state = useState({
-            tableNumber: "",
+            tables: [],
+            selectedTable: null,
+            posSession: null,
+            isLoading: false,
+            error: null
         });
+
+        onWillStart(async () => {
+            await this.loadRestaurantData();
+        });
+    }
+
+    async loadRestaurantData() {
+        this.state.isLoading = true;
+        this.state.error = null;
+
+        try {
+            const data = await this.rpc("/refuge/get_restaurant_data");
+
+            if (data.success) {
+                this.state.tables = data.tables;
+                this.state.posSession = data.pos_session;
+            } else {
+                this.state.error = data.message;
+            }
+        } catch (error) {
+            console.error("Error loading restaurant data:", error);
+            this.state.error = "Erreur de connexion au serveur";
+        } finally {
+            this.state.isLoading = false;
+        }
     }
 
     formatPrice(price) {
@@ -26,34 +54,50 @@ export class CartScreen extends Component {
     }
 
     async submitOrder() {
-        if (!this.state.tableNumber) {
-            alert("Veuillez saisir le numéro de table.");
+        if (!this.state.selectedTable) {
+            alert("Veuillez sélectionner une table");
             return;
         }
 
+        // Conversion explicite des dates
+        const formatDate = (date) => {
+            return date.toISOString().replace('T', ' ').slice(0, 19);
+        };
+
+        this.state.isLoading = true;
+
+        // Conversion explicite des données avant envoi
+        const prepareNumber = (value) => {
+            const num = Number(value);
+            return isNaN(num) ? 0 : num;
+        };
+
         const orderData = {
-            table_number: this.state.tableNumber,
+            table_id: prepareNumber(this.state.selectedTable.id),
             items: this.refuge.cart.map(item => ({
-                id: item.id,
-                name: item.name,
-                quantity: item.quantity,
-                price: item.list_price,
+                id: prepareNumber(item.id),
+                name: String(item.name),
+                quantity: prepareNumber(item.quantity),
+                price: prepareNumber(item.list_price),
             })),
-            total: this.refuge.getCartTotal(),
+            total: prepareNumber(this.refuge.getCartTotal()),
+            date_order: formatDate(new Date()),  // Format compatible Odoo
         };
 
         try {
             const response = await this.rpc("/refuge/submit_order", orderData);
             if (response.success) {
-                alert(`Commande enregistrée ! Rendez-vous au bar avec le numéro de table ${this.state.tableNumber}.`);
+                alert(`Commande #${response.order_id} créée avec succès`);
                 this.refuge.clearCart();
-                this.state.tableNumber = ""; // reset input
+                this.state.selectedTable = null;
             } else {
-                alert("Une erreur est survenue.");
+                alert(response.message);
             }
         } catch (error) {
-            console.error("Erreur lors de la commande :", error);
-            alert("Échec de l'envoi de la commande.");
+            console.error("Erreur:", error);
+            alert("Erreur technique - voir console");
+        } finally {
+            this.state.isLoading = false;
         }
     }
 }
