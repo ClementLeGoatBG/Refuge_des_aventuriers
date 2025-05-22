@@ -115,6 +115,24 @@
     background-color: #c0392b;
 }
 
+.validate-order-button {
+    background-color: #27ae60; /* Vert principal (succès) */
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 2rem;
+    display: block;
+    width: 100%;
+}
+
+.validate-order-button:hover {
+    background-color: #1e8449; /* Vert plus foncé au survol */
+}
+
 .cart-badge {
     background-color: red;
     color: white;

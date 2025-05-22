@@ -29,6 +29,7 @@
                         Total : <t t-esc="formatPrice(refuge.getCartTotal())" />
                     </div>
                     <t t-if="refuge.cart.length > 0">
+                        <button t-on-click="" class="validate-order-button">Valider la commande</button>
                         <button t-on-click="() => refuge.clearCart()" class="clear-cart-button">Vider le panier</button>
                     </t>
                 </div>
