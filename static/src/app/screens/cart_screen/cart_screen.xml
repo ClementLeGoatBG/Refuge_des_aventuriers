@@ -34,7 +34,7 @@
 
                     <t t-if="refuge.cart.length > 0">
                         <div class="table-section">
-                            <h2>Sélectionnez une table</h2>
+                            <h2 class="table-title">Choix de la table :</h2>
 
                             <t t-if="state.error">
                                 <div class="error-message">
@@ -63,8 +63,7 @@
                                                 <t t-if="!table.active"> (Inactive)</t>
                                             </div>
                                             <div class="table-info">
-                                                <span><i class="fa fa-chair"/> <t t-esc="table.seats"/></span>
-                                                <span><i class="fa fa-layer-group"/> <t t-esc="table.floor_name"/></span>
+                                                <span><i class="fa fa-chair"/> <t t-out="`${table.seats} chaise${table.seats > 1 ? 's' : ''}`"/></span>
                                             </div>
                                         </div>
                                     </t>
@@ -73,9 +72,6 @@
                                 <t t-if="state.selectedTable">
                                     <div class="selection-info">
                                         Table sélectionnée : <strong><t t-esc="state.selectedTable.name"/></strong>
-                                        <t t-if="state.posSession">
-                                            (Session POS : <t t-esc="state.posSession.name"/>)
-                                        </t>
                                     </div>
                                 </t>
                             </t>

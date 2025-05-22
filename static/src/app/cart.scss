@@ -162,3 +162,130 @@
     border-radius: 0.5rem;
     border: 1px solid #ccc;
 }
+
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.table-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.table-card:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.table-card.selected {
+    border-color: var(--accent-orange);
+    background-color: rgba(255, 165, 0, 0.15);
+}
+
+.table-card.inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.table-number {
+    font-weight: bold;
+    color: var(--accent-orange);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.table-info {
+    font-size: 0.9rem;
+    color: var(--light-text);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.selection-info {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--light-text);
+}
+
+.selection-info strong {
+    color: var(--accent-orange);
+}
+
+.validation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.btn-clear {
+    background-color: #e74c3c;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    flex: 1;
+}
+
+.btn-clear:hover {
+    background-color: #c0392b;
+}
+
+.btn-validate {
+    background-color: #27ae60;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    flex: 1;
+}
+
+.btn-validate:hover {
+    background-color: #1e8449;
+}
+
+.btn-validate:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.loading,
+.error-message {
+    margin-top: 1rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message {
+    color: #e74c3c;
+}
+
+.loading {
+    color: var(--light-text);
+}
+
+.table-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-orange);
+    margin: 2rem 0 1rem 0;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
