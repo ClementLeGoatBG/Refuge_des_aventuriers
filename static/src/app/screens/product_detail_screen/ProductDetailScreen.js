@@ -20,7 +20,7 @@ export class ProductDetailScreen extends Component {
         return this.refuge.products.find(product => product.id === productId);
     }
 
-    // 💰 Format du prix
+    //Format du prix
     formatPrice(price) {
         return price.toFixed(2) + " €";
     }
@@ -47,7 +47,7 @@ export class ProductDetailScreen extends Component {
         }
     }
 
-    // 🧺 Ajout avec quantité
+    // Ajout avec quantité
     addToCartWithQuantity() {
         for (let i = 0; i < this.quantity; i++) {
             this.onAddToCart();
@@ -71,7 +71,24 @@ export class ProductDetailScreen extends Component {
         return markup(this.product.description)
     }
 
+    getCategoryLabel() {
+        if (!this.product.categ_id || !this.product.categ_id[1]) {
+            return "Sans catégorie";
+        }
 
+        const fullPath = this.product.categ_id[1];
+        const prefix = "All / Saleable / PoS";
+
+        if (fullPath.startsWith(prefix)) {
+            // Supprime le préfixe
+            const cleaned = fullPath.slice(prefix.length).trim();
+
+            // Supprime un éventuel slash ou espace au début
+            return cleaned.replace(/^\/?\s*/, '');
+        }
+
+        return fullPath.trim();
+    }
 }
 
 registry.category("refuge_screens").add("ProductDetailScreen", ProductDetailScreen);

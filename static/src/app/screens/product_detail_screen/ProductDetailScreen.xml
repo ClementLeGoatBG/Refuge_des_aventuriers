@@ -44,7 +44,8 @@
 
                         <div class="product-category">
                             <h2>Catégorie</h2>
-                            <p><t t-esc="product.categ_id[1]" /></p>
+                            <p><t t-esc="getCategoryLabel()" /></p>
+<!--                            <p><t t-esc="product.categ_id[1]" /></p>-->
                         </div>
 
                         <div class="product-ingredients">
