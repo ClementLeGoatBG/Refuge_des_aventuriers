@@ -1,5 +1,5 @@
 /** @odoo-module */
-import { Component } from "@odoo/owl";
+import { Component, markup } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useRefuge } from "@refuge_aventuriers/app/store/refuge_hook";
 import { Header } from "@refuge_aventuriers/app/screens/header/header";
@@ -65,6 +65,10 @@ export class ProductDetailScreen extends Component {
     // 🧪 Vérifie la présence d'ingrédients
     hasIngredients() {
         return this.product.ingredients && this.product.ingredients.length > 0;
+    }
+
+    get description() {
+        return markup(this.product.description)
     }
 
 

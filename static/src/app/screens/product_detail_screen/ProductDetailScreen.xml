@@ -38,7 +38,7 @@
 
                         <div class="product-description">
                             <h2>Description</h2>
-                            <p t-if="product.description"><t t-esc="product.description" /></p>
+                            <p t-if="product.description"><t t-out="description" /></p>
                             <p t-if="!product.description">Aucune description disponible pour ce produit.</p>
                         </div>
 
