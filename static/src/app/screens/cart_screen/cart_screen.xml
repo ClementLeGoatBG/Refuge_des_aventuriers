@@ -29,7 +29,10 @@
                         Total : <t t-esc="formatPrice(refuge.getCartTotal())" />
                     </div>
                     <t t-if="refuge.cart.length > 0">
-                        <button t-on-click="" class="validate-order-button">Valider la commande</button>
+                        <div class="cart-table-number">
+                            <input type="number" t-model="state.tableNumber" placeholder="Numéro de table..." class="table-input" min="1" step="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+                        </div>
+                        <button t-on-click="submitOrder" class="validate-order-button">Valider la commande</button>
                         <button t-on-click="() => refuge.clearCart()" class="clear-cart-button">Vider le panier</button>
                     </t>
                 </div>
