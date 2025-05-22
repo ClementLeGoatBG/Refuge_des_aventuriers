@@ -1,7 +1,7 @@
 {
     "name": "Refuge des aventuriers",
     "version": "17.0.1.0.0",
-    "depends": ["base"],
+    "depends": ["base", "point_of_sale"],
     "author": "Kal-It",
     "website": "https://kal-it.fr",
     "license": "GPL-3 or any later version",
@@ -9,6 +9,9 @@
     "data": [
         "security/ir.model.access.csv",
         "views/refuge_assets_index.xml",
+        "views/res_partner_views.xml",
+        "views/product_category_views.xml",
+        "views/loyality_order_views.xml",
     ],
     "assets": {
         "refuge_aventuriers._assets_refuge": [

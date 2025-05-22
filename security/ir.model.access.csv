@@ -1,1 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_loyalty,res.partner.loyalty,base.model_res_partner,base.group_user,1,1,1,0
+access_product_category_loyalty,product.category.loyalty,product.model_product_category,base.group_user,1,1,1,0
+refuge_aventuriers.access_loyalty_order,access_loyalty_order,refuge_aventuriers.model_loyalty_order,base.group_user,1,1,1,0
+refuge_aventuriers.access_refuge_management,access_refuge_management,refuge_aventuriers.model_refuge_management,base.group_user,1,1,1,0

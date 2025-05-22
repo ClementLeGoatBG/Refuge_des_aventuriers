@@ -1,0 +1,30 @@
+<odoo>
+  <record id="view_loyalty_order_form" model="ir.ui.view">
+    <field name="name">loyalty.order.form</field>
+    <field name="model">loyalty.order</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="partner_id"/>
+            <field name="partner_loyalty_points" readonly="1"/>
+            <field name="category_id"/>
+            <field name="product_id" domain="[('categ_id', '=', category_id)]"/>
+            <field name="points_used"/>
+             <button name="action_create_order" string="Créer Commande" type="object"/>
+          </group>
+        </sheet>
+
+      </form>
+    </field>
+  </record>
+
+  <record id="action_loyalty_order" model="ir.actions.act_window">
+    <field name="name">Commandes de Fidélité</field>
+    <field name="res_model">loyalty.order</field>
+    <field name="view_mode">form</field>
+  </record>
+
+    <menuitem id="menu_loyalty_root" name="Fidélité" sequence="10"/>
+    <menuitem id="menu_loyalty_order" name="Commandes de Fidélité" parent="menu_loyalty_root" action="action_loyalty_order" sequence="10"/>
+</odoo>

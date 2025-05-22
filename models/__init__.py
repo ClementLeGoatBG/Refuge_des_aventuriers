@@ -1,1 +1,1 @@
-from . import management
+from . import management , res_partner, pos_order, product_category,loyality_order
